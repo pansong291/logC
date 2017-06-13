@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+ <string name="hello">Hello World, MainActivity!</string>
+ <string name="app_name">logC</string>
+ <string name="activity_crash_label">程序错误</string>
+ <string name="activity_setting_label">设置</string>
+ <string name="activity_updata_label">更新</string>
+ <string name="dialog_message_copy2">...到剪贴板</string>
+ <string name="dialog_message_no_root">您的设备未获取root权限，在安卓4.1及以上设备无法获取log。</string>
+ <string name="dialog_message_help">本应用使用的前提是您的设备能够读取log或者已获取到root权限。\n若无法获取log请root您的手机。\n要想获取到完整的log信息，请先在本应用开始后，再打开被获取log的应用(之前该应用未在运行或已被退出)，否则只能获取到一部分log。</string>
+ <string name="dialog_button_add">添加</string>
+ <string name="dialog_button_choose">多选</string>
+ <string name="dialog_button_copy">复制</string>
+ <string name="dialog_button_positive">确定</string>
+ <string name="dialog_title_no_root">无root权限</string>
+ <string name="dialog_title_help">帮助</string>
+ <string name="menu_title_clear">清空</string>
+ <string name="menu_title_more">更多</string>
+ <string name="menu_title_restart">重新开始</string>
+ <string name="menu_title_search">搜索</string>
+ <string name="menu_title_setting">设置</string>
+ <string name="menu_title_start">开始</string>
+ <string name="menu_title_suspend">暂停</string>
+ <string name="preference_summary_about">本应用由百度贴吧@pansong291PS开发</string>
+ <string name="preference_title_yc">隐藏选项</string>
+ <string name="preference_title_monitore">监控本程序</string>
+ <string name="textview_text_allchoose">全选</string>
+ <string name="textview_text_exitchoose">退出多选</string>
+ <string name="textview_text_lianxuan">连选</string>
+ <string name="toast_choose_first">请选择第一项</string>
+ <string name="toast_choose_last">请选择最后一项</string>
+ <string name="toast_copy_reSet">已复制</string>
+ <string name="toast_copy_add">已添加</string>
+ <string name="toast_packageName_not_input">请输入包名</string>
+ <string name="toast_packageName_not_right">请输入正确包名</string>
+ <string name="toast_packageName_not_monitore">不能监控本程序记录</string>
+ <string name="toast_searchText_not_input">请输入查找内容</string>
+ 
+ <color name="alpha">#00000000</color>
+ <color name="black">#ff000000</color>
+ <color name="color_searched">#6034b6e4</color>
+ <color name="color_btn_down">#9934b6e4</color>
+ 
+ <string-array name="chooseFont_value">
+  <item>sans</item>
+  <item>monospace</item>
+  <item>serif</item>
+ </string-array>
+ 
+ <string-array name="font_size">
+  <item>8</item>
+  <item>9</item>
+  <item>10</item>
+  <item>11</item>
+  <item>12</item>
+  <item>13</item>
+  <item>14</item>
+  <item>15</item>
+  <item>16</item>
+  <item>17</item>
+  <item>18</item>
+  <item>19</item>
+  <item>20</item>
+  <item>21</item>
+  <item>22</item>
+  <item>23</item>
+  <item>24</item>
+ </string-array>
+ 
+</resources>

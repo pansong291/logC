@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <PreferenceScreen
+  android:key="set_main"
+  android:title="@string/menu_title_setting"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  
+  <PreferenceCategory
+   android:title="基本选项">
+
+   <CheckBoxPreference
+	android:key="singleLine"
+	android:title="单行显示"
+	android:summaryOn="打开程序默认单行显示log"
+	android:summaryOff="打开程序默认显示log详情"
+	android:defaultValue="true"/>
+
+   <CheckBoxPreference
+    android:key="lineCodeisLog"
+	android:title="行号为log数"
+	android:summaryOn="行号显示当前log数"
+	android:summaryOff="行号显示当前列表数"
+	android:defaultValue="false"/>
+   
+   <ListPreference
+    android:key="fontType"
+	android:title="字体"
+	android:entries="@array/chooseFont_value"
+	android:entryValues="@array/chooseFont_value"
+	android:dialogTitle="选择字体"
+	android:defaultValue="sans"/>
+
+   <ListPreference
+	android:key="fontSize"
+	android:title="字体大小"
+	android:entries="@array/font_size"
+	android:entryValues="@array/font_size"
+	android:dialogTitle="选择字体大小"
+	android:defaultValue="14"/>
+
+   <CheckBoxPreference
+	android:key="bigFont"
+	android:title="字体加粗"
+	android:defaultValue="false"/>
+   
+   <CheckBoxPreference
+	android:key="blackBack"
+	android:title="暗背景"
+	android:defaultValue="true"/>
+   
+   <EditTextPreference
+	android:key="listLength"
+	android:title="列表显示行数"
+	android:summary="限制列表显示log的最多行数避免内存溢出"
+	android:dialogTitle="20到5000之间"
+	android:defaultValue="1000"/>
+   
+  </PreferenceCategory>
+  
+  <PreferenceCategory
+   android:key="set_yc"
+   android:title="@string/preference_title_yc">
+
+   <CheckBoxPreference
+	android:key="set_checkBox2"
+	android:title="@string/preference_title_monitore"
+	android:defaultValue="false"/>
+   
+  </PreferenceCategory>
+  
+  <PreferenceCategory
+   android:title="其它">
+
+   <Preference
+	android:key="set_help"
+	android:title="帮助"/>
+
+   <CheckBoxPreference
+	android:key="set_checkBox3"
+	android:title="自动检测更新"
+	android:defaultValue="true"/>
+   
+   <Preference
+	android:key="set_checknew"
+	android:title="版本"
+	android:summary="立即检查更新"/>
+   
+   <Preference
+	android:key="set_about"
+	android:title="关于"
+	android:summary="@string/preference_summary_about"/>
+   
+	</PreferenceCategory>
+	
+ </PreferenceScreen>
+<!--
+android:key  选项的名称或键,类似id
+android:title  选项的标题
+android:summary  选项的简短摘要
+android:entries  可将选项设置成列表项的文本
+android:entryValues  定义每个列表项的值。注意：每个列表项有一些文本和一个值。文本由entries定义，值由entryValues定义。
+android:dialogTitle  对话框的标题，在视图显示为模态对话框时使用
+android:defaultValue  项列表中选项的默认值
+-->

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:id="@+id/logcatLinearLayout1"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:id="@+id/logcatLinearLayout5"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:id="@+id/logcatLinearLayout2"
+		android:gravity="center"
+		android:background="#808080">
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/logcatEditText1"
+			android:hint="com.tencent.mobileqq"
+			android:layout_weight="1.0"
+			android:singleLine="true"
+			android:textColor="#DDDDDD"
+			android:textColorHint="#444444"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"
+			android:background="#000000"/>
+
+		<TextView
+			android:layout_height="match_parent"
+			android:text="@string/menu_title_start"
+			android:layout_width="60dp"
+			android:clickable="true"
+			android:onClick="onLogStart"
+			android:textColor="#000000"
+			android:background="@drawable/button"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:padding="6dp"
+			android:gravity="center"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_height="1dp"
+		android:layout_width="match_parent"
+		android:background="#000000"/>
+
+	<ListView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:id="@+id/logcatListView1"
+		android:fastScrollEnabled="true"
+		android:layout_weight="1.0"/>
+
+	<View
+		android:layout_height="1dp"
+		android:layout_width="match_parent"
+		android:background="#000000"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:visibility="gone"
+		android:background="#808080"
+		android:id="@+id/logcatLinearLayout4">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="@string/textview_text_lianxuan"
+			android:layout_width="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:gravity="center"
+			android:layout_weight="1.0"
+			android:background="@drawable/button"
+			android:clickable="true"
+			android:textColor="#000000"
+			android:onClick="lianCheck"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"
+			android:background="#000000"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="@string/textview_text_allchoose"
+			android:layout_width="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_weight="1.0"
+			android:gravity="center"
+			android:clickable="true"
+			android:background="@drawable/button"
+			android:textColor="#000000"
+			android:onClick="selectAll"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"
+			android:background="#000000"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="@string/textview_text_exitchoose"
+			android:layout_width="wrap_content"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_weight="1.0"
+			android:clickable="true"
+			android:background="@drawable/button"
+			android:textColor="#000000"
+			android:onClick="exitCheckModel"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center"
+		android:id="@+id/logcatLinearLayout3"
+		android:background="#808080"
+		android:visibility="gone">
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_weight="1.0"
+			android:hint="查找内容"
+			android:textColorHint="#444444"
+			android:textColor="#DDDDDD"
+			android:id="@+id/logcatEditText2"
+			android:singleLine="true"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"
+			android:background="#000000"/>
+
+		<TextView
+			android:layout_height="match_parent"
+			android:text="⇧"
+			android:layout_width="45dp"
+			android:textColor="#CFCFCF"
+			android:clickable="true"
+			android:onClick="findClick"
+			android:background="@drawable/button"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:gravity="center"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"
+			android:background="#000000"/>
+
+		<TextView
+			android:layout_height="match_parent"
+			android:text="⇩"
+			android:layout_width="45dp"
+			android:textColor="#CFCFCF"
+			android:clickable="true"
+			android:onClick="findClick"
+			android:background="@drawable/button"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:gravity="center"
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"/>
+
+		<View
+			android:layout_height="match_parent"
+			android:layout_width="1dp"
+			android:background="#000000"/>
+
+		<ImageView
+			android:layout_height="match_parent"
+			android:layout_width="32dp"
+			android:src="@drawable/ic_menu_close_clear_cancel"
+			android:background="@drawable/button"
+			android:clickable="true"
+			android:onClick="closeFind"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+
