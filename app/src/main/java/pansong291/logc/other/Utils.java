@@ -30,7 +30,12 @@ public class Utils
    }
   }catch(Exception e)
   {
-
+  }finally
+  {
+   try{
+   if(os!=null)
+    os.close();
+   }catch(Exception e){}
   }
   return result==0;
  }

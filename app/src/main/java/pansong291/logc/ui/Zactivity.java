@@ -9,11 +9,11 @@ import pansong291.crash.ActivityControl;
 
 public class Zactivity extends Activity
 {
- public static final String LOG_PACKAGE="logPackage",APP_FIRST_RUN="app_first_run",
+ public static final String LOG_PACKAGE="logPackage",
  SET_CB3="set_checkBox3",SINGLE_LINE="singleLine",LIST_LEN="listLength",
  TIME_L="timeL",BIG_FONT="bigFont",FONT_SIZE="fontSize",
  FONT_TYPE="fontType",BLACK_BACK="blackBack",LINE_CODE_IS_LOG="lineCodeisLog";
- public final String V_CODE="v_code",QZGX="qzGX";
+ public static final String V_CODE="v_code",QZGX="qzGX";
  
  public SharedPreferences sp;
  public ClipboardManager mcb;

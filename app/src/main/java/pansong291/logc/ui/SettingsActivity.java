@@ -9,9 +9,11 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import pansong291.crash.ActivityControl;
 import pansong291.logc.R;
 import pansong291.logc.other.MultiClick;
-import pansong291.crash.ActivityControl;
+import pansong291.logc.other.MyUpdata;
+import pansong291.logc.other.MyUpdataDialogListener;
 
 public class SettingsActivity extends PreferenceActivity
 implements OnPreferenceClickListener,
@@ -23,6 +25,7 @@ OnPreferenceChangeListener
  EditTextPreference edtp;
  Preference btn1,btn2,btn3;
  MultiClick multic;
+ MyUpdata mUpdata=null;
  private boolean firstStart=true;//每次刚开始启动this Activity
  
  @Override
@@ -91,7 +94,13 @@ OnPreferenceChangeListener
 	multic.onMultiClick(this);
 	break;
    case "set_checknew":
-	p1.setSummary("正在检测更新中，请稍候...");
+    if(mUpdata==null)
+    {
+     p1.setSummary("正在检测更新中，请稍候...");
+     mUpdata=new MyUpdata(this,"RSerWqZ",new MyUpdataDialogListener(this));
+     mUpdata.checkNow(true,p1);
+    }else if(mUpdata!=null&&mUpdata.isFinished())
+     mUpdata.showDialog();
 	break;
   }
   return true;

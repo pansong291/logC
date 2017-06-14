@@ -5,16 +5,17 @@
  <string name="app_name">logC</string>
  <string name="activity_crash_label">程序错误</string>
  <string name="activity_setting_label">设置</string>
- <string name="activity_updata_label">更新</string>
  <string name="dialog_message_copy2">...到剪贴板</string>
- <string name="dialog_message_no_root">您的设备未获取root权限，在安卓4.1及以上设备无法获取log。</string>
- <string name="dialog_message_help">本应用使用的前提是您的设备能够读取log或者已获取到root权限。\n若无法获取log请root您的手机。\n要想获取到完整的log信息，请先在本应用开始后，再打开被获取log的应用(之前该应用未在运行或已被退出)，否则只能获取到一部分log。</string>
+ <string name="dialog_message_no_root">您的设备未获取root权限，将无法获取log。</string>
+ <string name="dialog_message_help">本应用使用的前提是您的设备已获取到root权限。\n若没有获取root权限请先root您的手机。\n要想获取到完整的log信息，请先在本应用开始后，再打开被获取log的应用(之前该应用未在运行或已被退出)，否则只能获取到一部分log。</string>
+ <string name="dialog_message_update">感谢您对本应用的支持！\n本应用已成功升级到%1$s版本。\n%2$s</string>
  <string name="dialog_button_add">添加</string>
  <string name="dialog_button_choose">多选</string>
  <string name="dialog_button_copy">复制</string>
  <string name="dialog_button_positive">确定</string>
  <string name="dialog_title_no_root">无root权限</string>
  <string name="dialog_title_help">帮助</string>
+ <string name="dialog_title_update">版本升级</string>
  <string name="menu_title_clear">清空</string>
  <string name="menu_title_more">更多</string>
  <string name="menu_title_restart">重新开始</string>
@@ -36,6 +37,7 @@
  <string name="toast_packageName_not_right">请输入正确包名</string>
  <string name="toast_packageName_not_monitore">不能监控本程序记录</string>
  <string name="toast_searchText_not_input">请输入查找内容</string>
+ <string name="update_msg"></string>
  
  <color name="alpha">#00000000</color>
  <color name="black">#ff000000</color>

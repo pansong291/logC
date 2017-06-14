@@ -21,9 +21,6 @@
             android:label="@string/activity_crash_label"
             android:name=".ui.CrashActivity"/>
         <activity
-            android:label="@string/activity_updata_label"
-            android:name=".ui.UpdataActivity"/>
-        <activity
             android:label="@string/activity_setting_label"
             android:name=".ui.SettingsActivity"/>
     </application>
@@ -31,5 +28,6 @@
     <!--uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/-->
     <!--在sdcard中创建/删除文件的权限 -->
     <!--uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/-->
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

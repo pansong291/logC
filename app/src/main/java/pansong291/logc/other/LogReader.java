@@ -2,14 +2,14 @@ package pansong291.logc.other;
 
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.Time;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class LogReader implements Runnable
 {
- public static int hour,minute;
+ private int hour,minute,second;
  public boolean reading=true;
  private boolean running=true;
  private String packageN;
@@ -18,6 +18,7 @@ public class LogReader implements Runnable
  
  public void run()
  {
+  setNowTime();
   readLog();
  }
  
@@ -45,9 +46,9 @@ public class LogReader implements Runnable
    //以上为通过root得到process
    reader=new BufferedReader(new InputStreamReader(process.getInputStream()));
    String line,pid="&~8$<!-[?}^";
-   while(running&&(line=reader.readLine())!=null)
+   while(running)
    {
-	if(!running)break;
+    if((line=reader.readLine())==null)continue;
 	if(reading&&filteHistory(line))
 	{
 	 if(line.indexOf(packageN)>-1)
@@ -68,7 +69,7 @@ public class LogReader implements Runnable
 	 }
 	}
    }
-  }catch(IOException e)
+  }catch(Exception e)
   {}
  }
  
@@ -77,15 +78,25 @@ public class LogReader implements Runnable
   packageN=s;handler=h;
  }
  
+ private void setNowTime()
+ {
+  Time tt=new Time();
+  tt.setToNow();
+  hour=tt.hour;
+  minute=tt.minute;
+  second=tt.second;
+ }
+ 
  private boolean filteHistory(String l)
  {
-  int k,m,n;
+  int k,m,n,s;
   k=l.indexOf(":");
   if(k<2)
    return true;
   m=Integer.parseInt(l.substring(k-2,k).trim());
   n=Integer.parseInt(l.substring(k+1,k+3).trim());
-  return(m>=hour&&n>=minute);
+  s=Integer.parseInt(l.substring(k+4,k+6).trim());
+  return(m>=hour&&n>=minute&&s>=second);
  }
  
  public void sendTxt(String g)
@@ -105,7 +116,7 @@ public class LogReader implements Runnable
   {
    running=false;
    if(reader!=null)reader.close();
-  }catch(IOException e)
+  }catch(Exception e)
   {
    return false;
   }

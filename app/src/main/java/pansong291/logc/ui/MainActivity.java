@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,14 +14,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import pansong291.logc.R;
 import pansong291.logc.other.LogReader;
 import pansong291.logc.other.MyAdapter;
 import pansong291.logc.other.MyAdapter.LogItemValue;
-import pansong291.logc.ui.Zactivity;
+import pansong291.logc.other.MyProclamation;
+import pansong291.logc.other.MyUpdata;
+import pansong291.logc.other.MyUpdataDialogListener;
 import pansong291.logc.other.Utils;
+import pansong291.logc.ui.Zactivity;
 
 public class MainActivity extends Zactivity
 implements AdapterView.OnItemClickListener,
@@ -36,8 +39,8 @@ DialogInterface.OnClickListener
  EditText medtxt,//输入包名的edit
  medsrh;//搜索内容
  MenuItem mitem;//暂停开始按钮
- LogReader logre;
- Thread mthread;
+ LogReader logre=null;
+ Thread mthread=null;
  ListView listview;
  AlertDialog copyDialog1,copyDialog2;
  int listLength,//list显示的最多条数
@@ -131,19 +134,35 @@ DialogInterface.OnClickListener
      .show();
    }
    
-   if(sp.getBoolean(APP_FIRST_RUN,true))
+   int oldVerCode=sp.getInt(V_CODE,99999999);
+   if(oldVerCode<VERSION_CODE)
    {
+    //用户更新了本应用
+    new AlertDialog.Builder(this)
+     .setTitle(R.string.dialog_title_update)
+     .setMessage(String.format(getString(R.string.dialog_message_update),VERSION_NAME,getString(R.string.update_msg)))
+     .setPositiveButton(R.string.dialog_button_positive,null)
+     .show();
+    sp.edit().putInt(V_CODE,VERSION_CODE).commit();
+   }else if(oldVerCode==99999999)
+   {
+    //用户第一次安装本应用
     new AlertDialog.Builder(this)
      .setTitle(R.string.dialog_title_help)
      .setMessage(R.string.dialog_message_help)
      .setPositiveButton(R.string.dialog_button_positive,null)
      .show();
-	sp.edit().putBoolean(APP_FIRST_RUN,false).commit();
+    sp.edit().putInt(V_CODE,VERSION_CODE).commit();
    }
    
+   //公告相关
+   LinearLayout llt=(LinearLayout)findViewById(R.id.logcatLinearLayout5);
+   new MyProclamation(this,"RSera6X",llt).start();
+
+   //更新相关
    if(sp.getBoolean(SET_CB3,true)||sp.getBoolean(QZGX,false))
    {
-    
+    new MyUpdata(this,"RSerWqZ",new MyUpdataDialogListener(this)).checkNow(false,null);
    }
   }
   protected void onResume()
@@ -168,25 +187,26 @@ DialogInterface.OnClickListener
    if(firstStart&&logPackag.length()>1)
    {
 	medtxt.setText(logPackag);
-	onLogStart(medtxt);
+	onLogStart(null);
    }
   }
 
   private void startLog(String m)
   {
+   if(logre!=null)
+    logre.closeReader();
+   if(mthread!=null&&!mthread.isInterrupted())
+    mthread.interrupt();
+   logre=null;
+   mthread=null;
+   adapter.clearLogInfo();
+   lineH=0;
+//   adapter.notifyDataSetChanged();
    logre=new LogReader(m,handler);
    mthread=new Thread(logre);
    mthread.start();
-   setNowTime();
    Log.v("logC","Start to read logs: "+m);
-  }
-  
-  private void setNowTime()
-  {
-   Time tt=new Time();
-   tt.setToNow();
-   LogReader.hour=tt.hour;
-   LogReader.minute=tt.minute;
+   firstStart=false;
   }
   
   @Override
@@ -224,15 +244,6 @@ DialogInterface.OnClickListener
     adapter.intItem.get(p3).index=i1;
 	tv1.setVisibility(i1);
 	tv2.setVisibility(8-i1);
-//    if(tv1.getVisibility()==0)
-//    {
-//	 tv1.setVisibility(8);
-//	 tv2.setVisibility(0);
-//    }else
-//    {
-//	 tv1.setVisibility(0);
-//	 tv2.setVisibility(8);
-//    }
    }
   }
   
@@ -286,21 +297,16 @@ DialogInterface.OnClickListener
    }else if(str.equals(getPackageName())&&!monitoredMe)
    {
 	toast(R.string.toast_packageName_not_monitore);return;
-   }else if((!firstStart)&&sp.getString(LOG_PACKAGE,"").equals(str))
+   }else if((!firstStart)&&sp.getString(LOG_PACKAGE,"").equals(str)&&logre!=null&&mthread!=null)
    {
 	mll1.setVisibility(8);return;
    }
-   if(mthread!=null&&!mthread.interrupted())
-	mthread.interrupt();
-   adapter.clearLogInfo();
-   lineH=0;
-//   adapter.notifyDataSetChanged();
    mll1.setVisibility(8);
    sp.edit().putString(LOG_PACKAGE,str).commit();
-   if(mitem!=null)mitem.setTitle(R.string.menu_title_suspend)
-   .setIcon(R.drawable.ic_media_pause);
+   if(mitem!=null)
+    mitem.setTitle(R.string.menu_title_suspend)
+    .setIcon(R.drawable.ic_media_pause);
    startLog(str);
-   firstStart=false;
   }
 
   public void lianCheck(View v)
@@ -407,6 +413,7 @@ DialogInterface.OnClickListener
 //   return true;
 //  }
   
+  @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
    switch(item.getItemId())
@@ -416,6 +423,7 @@ DialogInterface.OnClickListener
 	 if(logre==null)
 	 {
 	  Log.e("logc","the class LogReader is null.");
+      toast("请点击重新开始来获取log");
 	 }else if(logre.reading)
 	 {
 	  logre.reading=false;
@@ -451,11 +459,20 @@ DialogInterface.OnClickListener
   
   public void onBackPressed()
   {
-   super.onBackPressed();
-   if(logre!=null)logre.closeReader();
-   if(mthread!=null&&!mthread.interrupted())
-	mthread.interrupt();
-   System.exit(0);
+   if(logre==null&&mthread==null)
+    super.onBackPressed();
+   else
+   {
+    if(mitem!=null)
+     mitem.setTitle(R.string.menu_title_start)
+     .setIcon(R.drawable.ic_media_play);
+    if(logre!=null)logre.closeReader();
+    if(mthread!=null&&!mthread.isInterrupted())
+	 mthread.interrupt();
+    logre=null;
+    mthread=null;
+    toast("已停止记录，再次点击将退出应用");
+   }
   }
   
   
