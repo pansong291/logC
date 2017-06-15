@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import pansong291.network.Updata;
+import android.app.AlertDialog;
 
 public class MyUpdata extends Updata
 {
@@ -16,9 +17,9 @@ public class MyUpdata extends Updata
  private Preference process;
  private TextView ntxt;
  private ScrollView slv;
- private Builder adb;
+ private AlertDialog adb;
  private MyUpdataDialogListener li;
- private boolean showToast,isFinished=false;
+ private boolean showToast,finished=false,successed=false;
  public boolean isHasNew;
  public String dialogMessage;
  
@@ -33,13 +34,15 @@ public class MyUpdata extends Updata
   ntxt.setTextSize(16);
   ntxt.setTextColor(Color.BLACK);
   slv.addView(ntxt);
-  adb=new Builder(a)
+  adb=new Builder(acti)
    .setTitle("发现新版本")
    .setCancelable(false)
    .setIcon(android.R.drawable.ic_dialog_info)
    .setNegativeButton("下次再说",li)
    .setPositiveButton("立即下载",li)
-   .setView(slv);
+   .setView(slv)
+   .create();
+  
   this.li=li;
   li.setUpDa(this);
   isHasNew=true;
@@ -54,7 +57,7 @@ public class MyUpdata extends Updata
  
  public void showDialog()
  {
-  adb.show();
+   adb.show();
  }
  
  @Override
@@ -74,12 +77,23 @@ public class MyUpdata extends Updata
   }else if(success&&showToast)
    Toast.makeText(acti,"已是最新版本",0).show();
   if(process!=null)process.setSummary("立即检测更新");
-  isFinished=true;
+  successed=success;
+  finished=true;
  }
  
  public boolean isFinished()
  {
-  return isFinished;
+  return finished;
+ }
+ 
+ public void setFinished(boolean b)
+ {
+  finished=b;
+ }
+ 
+ public boolean isSuccessed()
+ {
+  return successed;
  }
  
 }

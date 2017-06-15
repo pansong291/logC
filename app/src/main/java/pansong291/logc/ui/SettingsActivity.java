@@ -100,7 +100,14 @@ OnPreferenceChangeListener
      mUpdata=new MyUpdata(this,"RSerWqZ",new MyUpdataDialogListener(this));
      mUpdata.checkNow(true,p1);
     }else if(mUpdata!=null&&mUpdata.isFinished())
-     mUpdata.showDialog();
+    {
+     if(mUpdata.isSuccessed())mUpdata.showDialog();
+     else
+     {
+      mUpdata.setFinished(false);
+      mUpdata.checkNow(true,p1);
+     }
+    }
 	break;
   }
   return true;

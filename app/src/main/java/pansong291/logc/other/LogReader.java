@@ -45,7 +45,7 @@ public class LogReader implements Runnable
    os.flush();
    //以上为通过root得到process
    reader=new BufferedReader(new InputStreamReader(process.getInputStream()));
-   String line,pid="&~8$<!-[?}^";
+   String line,pid=null;
    while(running)
    {
     if((line=reader.readLine())==null)continue;
@@ -54,16 +54,17 @@ public class LogReader implements Runnable
 	 if(line.indexOf(packageN)>-1)
 	 {
 	  sendTxt(line);
-	  if(pid.equals("&~8$<!-[?}^")
-	   &&line.indexOf("Start proc "+packageN)>-1
-	   &&line.indexOf("uid=")>-1)
+	  if(pid==null&&line.indexOf("Start proc "+packageN)>-1&&line.indexOf("uid=")>-1)
 	  {
-	   pid=line.substring(
-	    line.indexOf("Start proc "+packageN),
-		line.indexOf("uid=")
-	   ).split("=")[1];
-	  }
-	 }else if(line.indexOf(pid)>-1)
+	   pid=line.substring(line.indexOf("Start proc "+packageN),line.indexOf("uid=")).split("=")[1];
+	  }else if(pid==null&&line.indexOf("Start proc ")>-1&&line.indexOf(":"+packageN)>-1)
+      {
+       pid=line.substring(line.indexOf("Start proc "),line.indexOf(":"+packageN)).split("c ")[1];
+      }else if(pid==null&&line.indexOf("Start proc")>-1)
+      {
+       
+      }
+	 }else if(pid!=null&&line.indexOf(pid)>-1)
 	 {
 	  sendTxt(line);
 	 }
